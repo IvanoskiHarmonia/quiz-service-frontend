@@ -1,6 +1,6 @@
 // src/components/QuestionsComponent.js
 import React, { useState } from "react";
-import "./QuestionComponent.css";
+import "./QuestionsComponent.css";
 import useDynamicQuestionFetch from "../../hooks/useDynamicQuestionFetch";
 
 function QuestionsComponent() {
@@ -14,6 +14,43 @@ function QuestionsComponent() {
     type,
   );
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [questionsPerPage] = useState(15);
+
+  const indexOfLastQuestion = currentPage * questionsPerPage;
+  const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
+  const currentQuestions = questions.slice(
+    indexOfFirstQuestion,
+    indexOfLastQuestion,
+  );
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(questions.length / questionsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  // Pagination component
+  const renderPageNumbers = pageNumbers.map((number) => {
+    return (
+      <li
+        key={number}
+        className={`page-item ${currentPage === number ? "active" : ""}`}
+      >
+        <a
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage(number);
+            window.scrollTo(0, 0);
+          }}
+          href="!#"
+          className="page-link"
+        >
+          {number}
+        </a>
+      </li>
+    );
+  });
+
   const categories = ["Java", "Spring"];
   const difficulties = ["Easy", "Medium", "Hard"];
   const types = [
@@ -25,7 +62,7 @@ function QuestionsComponent() {
 
   return (
     <div className="all-questions-container">
-      <h2>All Questions</h2>
+      <h2 className="display-6">All Questions</h2>
 
       <select
         className="select-box"
@@ -75,10 +112,14 @@ function QuestionsComponent() {
       ) : error ? (
         <div>Error: {error.message}</div>
       ) : (
-        questions.map((question, index) => (
+        currentQuestions.map((question, index) => (
           <QuestionItem key={index} question={question} />
         ))
       )}
+
+      <nav>
+        <ul className="pagination">{renderPageNumbers}</ul>
+      </nav>
     </div>
   );
 }
@@ -87,7 +128,10 @@ function QuestionItem({ question }) {
   const [showAnswer, setShowAnswer] = useState(false);
 
   return (
-    <div className="question-card">
+    <div
+      className="question-card"
+      style={{ background: getGradientStyle(question.difficulty) }}
+    >
       <div className="question-content">
         <p>Question: {question.text}</p>
         <p className="difficulty">Difficulty: {question.difficulty}</p>
@@ -103,5 +147,18 @@ function QuestionItem({ question }) {
     </div>
   );
 }
+
+const getGradientStyle = (difficulty) => {
+  switch (difficulty) {
+    case "EASY":
+      return "linear-gradient(to bottom, #add8e6af, white)";
+    case "MEDIUM":
+      return "linear-gradient(to bottom, #FED8B1AF, white)";
+    case "HARD":
+      return "linear-gradient(to bottom, #FF474CAF, white)";
+    default:
+      return "none";
+  }
+};
 
 export default QuestionsComponent;

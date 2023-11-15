@@ -23,7 +23,7 @@
 
 .difficulty {
   font-weight: bold;
-  color: #007bff; /* Example color */
+  text-shadow: 1px 1px 1px #ccc;
 }
 
 .answer-box {
@@ -49,7 +49,7 @@ button {
   background-color: #007bff; /* Example color */
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 5px !important;
   cursor: pointer;
   transition: background-color 0.3s;
 }
