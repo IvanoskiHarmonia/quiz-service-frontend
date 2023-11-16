@@ -7,11 +7,10 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 const AddQuestion = () => {
   const [question, setQuestion] = useState({
     text: "",
-    type: "",
-    options: [],
     answer: "",
     difficulty: "",
-    category: "",
+    category: { name: "" },
+    type: "OPEN_ENDED",
   });
 
   const categories = [
@@ -84,11 +83,17 @@ const AddQuestion = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setQuestion({ ...question, [name]: value });
-  };
-
-  const handleOptionChange = (e) => {
-    setQuestion({ ...question, options: e.target.value.split(",") });
+    if (name === "category") {
+      setQuestion((prevQuestion) => ({
+        ...prevQuestion,
+        category: { name: value },
+      }));
+    } else {
+      setQuestion((prevQuestion) => ({
+        ...prevQuestion,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -128,21 +133,6 @@ const AddQuestion = () => {
         <div className="form-floating mb-3">
           <textarea
             className="form-control"
-            id="options"
-            name="options"
-            placeholder="Enter options, separated by commas"
-            onChange={handleOptionChange}
-            value={question.options.join(", ")}
-            rows="2"
-          ></textarea>
-          <label htmlFor="options" className="form-label">
-            Options
-          </label>
-        </div>
-
-        <div className="form-floating mb-3">
-          <textarea
-            className="form-control"
             id="answer"
             name="answer"
             placeholder="Enter the answer"
@@ -153,25 +143,6 @@ const AddQuestion = () => {
           <label htmlFor="answer" className="form-label">
             Answer <span style={{ color: "red" }}>*</span>
           </label>
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="type" className="form-label">
-            Type <span style={{ color: "red" }}>*</span>
-          </label>
-          <select
-            className="form-select"
-            id="type"
-            name="type"
-            onChange={handleChange}
-            value={question.type}
-          >
-            <option value="">Select Type</option>
-            <option value="MULTIPLE_CHOICE">Multiple Choice</option>
-            <option value="TRUE_FALSE">True/False</option>
-            <option value="FILL_IN_THE_BLANK">Fill in blank</option>
-            <option value="OPEN_ENDED">Open Ended</option>
-          </select>
         </div>
 
         <div className="mb-3">
@@ -201,7 +172,7 @@ const AddQuestion = () => {
             id="category"
             name="category"
             onChange={handleChange}
-            value={question.category}
+            value={question.category?.name || ""}
           >
             <option value="">Select Category</option>
             {categories.map((category) => (

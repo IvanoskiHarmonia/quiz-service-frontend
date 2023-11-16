@@ -6,12 +6,10 @@ import useDynamicQuestionFetch from "../../hooks/useDynamicQuestionFetch";
 function QuestionsComponent() {
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
-  const [type, setType] = useState("");
 
   const { questions, loading, error } = useDynamicQuestionFetch(
     category,
     difficulty,
-    type,
   );
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,12 +51,6 @@ function QuestionsComponent() {
 
   const categories = ["Java", "Spring"];
   const difficulties = ["Easy", "Medium", "Hard"];
-  const types = [
-    "MULTIPLE_CHOICE",
-    "TRUE_FALSE",
-    "FILL_IN_THE_BLANK",
-    "OPEN_ENDED",
-  ];
 
   return (
     <div className="all-questions-container">
@@ -87,21 +79,6 @@ function QuestionsComponent() {
           {difficulties.map((d) => (
             <option key={d} value={d}>
               {d}
-            </option>
-          ))}
-        </select>
-      )}
-
-      {category && difficulty && (
-        <select
-          className="select-box"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-        >
-          <option value="">Select Type</option>
-          {types.map((t) => (
-            <option key={t} value={t}>
-              {t}
             </option>
           ))}
         </select>

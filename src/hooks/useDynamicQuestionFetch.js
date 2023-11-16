@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useDynamicQuestionFetch(category, difficulty, type) {
+function useDynamicQuestionFetch(category, difficulty) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -9,9 +9,7 @@ function useDynamicQuestionFetch(category, difficulty, type) {
   useEffect(() => {
     let url = "http://localhost:8000/questions";
 
-    if (category && difficulty && type) {
-      url += `/category-and-difficulty-and-type/${category}/${difficulty}/${type}`;
-    } else if (category && difficulty) {
+    if (category && difficulty) {
       url += `/category-and-difficulty/${category}/${difficulty}`;
     } else if (category) {
       url += `/category/${category}`;
@@ -29,7 +27,7 @@ function useDynamicQuestionFetch(category, difficulty, type) {
         setError(error);
         setLoading(false);
       });
-  }, [category, difficulty, type]); // Dependency array
+  }, [category, difficulty]); // Dependency array
 
   return { questions, loading, error };
 }
