@@ -59,7 +59,10 @@ function QuestionsComponent() {
       <select
         className="select-box"
         value={category}
-        onChange={(e) => setCategory(e.target.value)}
+        onChange={(e) => {
+          setCategory(e.target.value);
+          setCurrentPage(1);
+        }}
       >
         <option value="">Select Category</option>
         {categories.map((c) => (
@@ -73,7 +76,10 @@ function QuestionsComponent() {
         <select
           className="select-box"
           value={difficulty}
-          onChange={(e) => setDifficulty(e.target.value)}
+          onChange={(e) => {
+            setDifficulty(e.target.value);
+            setCurrentPage(1);
+          }}
         >
           <option value="">Select Difficulty</option>
           {difficulties.map((d) => (
@@ -113,11 +119,20 @@ function QuestionItem({ question }) {
         <p>Question: {question.text}</p>
         <p className="difficulty">Difficulty: {question.difficulty}</p>
       </div>
-      <textarea
-        className="answer-box"
-        placeholder="Type your answer here..."
-      ></textarea>
-      <button onClick={() => setShowAnswer(!showAnswer)}>
+      <div className="form-floating mb-3">
+        <textarea
+          className="form-control"
+          placeholder="Type your answer here..."
+          style={{ height: "125px" }}
+        ></textarea>
+        <label htmlFor="answer" className="form-label">
+          Answer
+        </label>
+      </div>
+      <button
+        className="btn btn-primary"
+        onClick={() => setShowAnswer(!showAnswer)}
+      >
         {showAnswer ? "Hide" : "Show"} Answer
       </button>
       {showAnswer && <div className="answer">Answer: {question.answer}</div>}

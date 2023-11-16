@@ -104,7 +104,6 @@ const AddQuestion = () => {
         question,
       );
       console.log(response.data);
-      // Reset form or redirect as needed
     } catch (error) {
       console.error("Error adding question: ", error);
     }
