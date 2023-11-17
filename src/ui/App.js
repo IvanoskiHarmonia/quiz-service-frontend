@@ -6,12 +6,11 @@ import {
   Route,
   NavLink,
 } from "react-router-dom";
-import QuestionsComponent from "./components/Get/QuestionsComponent";
-import QuizComponent from "./components/Get/QuizComponent";
-import AddQuestion from "./components/Post/add_questions/AddQuestion";
+import Home from "./pages/home/Home";
+import RandomQuiz from "./pages/random_quiz/RandomQuiz";
+import AddQuestion from "./pages/add_question/AddQuestion";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "./app.css";
 
 function App() {
   return (
@@ -62,9 +61,9 @@ function App() {
 
       <div className="container mt-4">
         <Routes>
-          <Route path="/" element={<QuestionsComponent />} />
+          <Route path="/" element={<Home />} />
           <Route path="/add-question" element={<AddQuestion />} />
-          <Route path="/quizzes" element={<QuizComponent />} />
+          <Route path="/quizzes" element={<RandomQuiz />} />
         </Routes>
       </div>
     </Router>

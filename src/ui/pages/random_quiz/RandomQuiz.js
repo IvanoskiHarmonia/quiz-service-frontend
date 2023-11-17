@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import useDynamicQuizFetch from "../../hooks/useDynamicQuizFetch";
-import QuestionCard from "../custom/QuestionCard";
-import QuizResultsScreen from "../custom/QuizResultsScreen";
+import useDynamicQuizFetch from "../../../common/services/useDynamicQuizFetch";
+import QuestionCard from "../../modules/components/QuestionCard/QuestionCard";
+import QuizResultsScreen from "../../modules/components/QuizResultsScreen/QuizResultsScreen";
 import axios from "axios";
 
-function QuizComponent() {
+function RandomQuiz() {
   const { questions, loading, error } = useDynamicQuizFetch();
   const [answers, setAnswers] = useState({});
   const [quizResults, setQuizResults] = useState(null);
@@ -62,4 +62,4 @@ function QuizComponent() {
   );
 }
 
-export default QuizComponent;
+export default RandomQuiz;

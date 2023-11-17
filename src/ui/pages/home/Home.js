@@ -1,10 +1,10 @@
 // src/components/QuestionsComponent.js
 import React, { useState } from "react";
-import "./QuestionsComponent.css";
-import useDynamicQuestionFetch from "../../hooks/useDynamicQuestionFetch";
-import QuestionCard from "../custom/QuestionCard";
+import "./Home.css";
+import useDynamicQuestionFetch from "../../../common/services/useDynamicQuestionFetch";
+import QuestionCard from "../../modules/components/QuestionCard/QuestionCard";
 
-function QuestionsComponent() {
+function Home() {
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
 
@@ -113,4 +113,4 @@ function QuestionsComponent() {
   );
 }
 
-export default QuestionsComponent;
+export default Home;
