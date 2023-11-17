@@ -100,10 +100,11 @@ const AddQuestion = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8000/questions/add",
+        "http://localhost:8000/api/questions/add",
         question,
       );
       console.log(response.data);
+      window.location = "/";
     } catch (error) {
       console.error("Error adding question: ", error);
     }

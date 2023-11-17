@@ -1,35 +1,28 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useDynamicQuestionFetch(category, difficulty) {
+function useDynamicQuizFetch() {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let url = "http://localhost:8000/api/questions";
-
-    if (category && difficulty) {
-      url += `/category-and-difficulty/${category}/${difficulty}`;
-    } else if (category) {
-      url += `/category/${category}`;
-    } else {
-      url += "/all";
-    }
+    let url = "http://localhost:8000/api/quizzes/random10";
 
     axios
       .get(url)
       .then((response) => {
-        setQuestions(response.data);
+        const sortedQuestions = response.data.sort((a, b) => a.id - b.id);
+        setQuestions(sortedQuestions);
         setLoading(false);
       })
       .catch((error) => {
         setError(error);
         setLoading(false);
       });
-  }, [category, difficulty]); // Dependency array
+  }, []); // Dependency array
 
   return { questions, loading, error };
 }
 
-export default useDynamicQuestionFetch;
+export default useDynamicQuizFetch;

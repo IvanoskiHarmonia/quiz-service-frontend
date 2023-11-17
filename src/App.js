@@ -7,6 +7,7 @@ import {
   NavLink,
 } from "react-router-dom";
 import QuestionsComponent from "./components/Get/QuestionsComponent";
+import QuizComponent from "./components/Get/QuizComponent";
 import AddQuestion from "./components/Post/add_questions/AddQuestion";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -49,6 +50,11 @@ function App() {
                   Add Question
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/quizzes" end>
+                  random10 Quiz
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
@@ -58,6 +64,7 @@ function App() {
         <Routes>
           <Route path="/" element={<QuestionsComponent />} />
           <Route path="/add-question" element={<AddQuestion />} />
+          <Route path="/quizzes" element={<QuizComponent />} />
         </Routes>
       </div>
     </Router>
