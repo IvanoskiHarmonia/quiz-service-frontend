@@ -12,6 +12,8 @@ const AddQuestion = () => {
     type: "OPEN_ENDED",
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "category") {
@@ -34,10 +36,11 @@ const AddQuestion = () => {
         "http://localhost:8000/api/questions/add",
         question,
       );
-      console.log(response.data);
+      console.log("Question added: ", response.data);
       window.location = "/";
     } catch (error) {
       console.error("Error adding question: ", error);
+      setErrorMessage("Please fill in all the required fields");
     }
   };
 
@@ -113,6 +116,10 @@ const AddQuestion = () => {
             ))}
           </select>
         </div>
+
+        {errorMessage && (
+          <div className="alert alert-danger">{errorMessage}</div>
+        )}
 
         <button type="submit" className="btn btn-primary">
           Add Question
