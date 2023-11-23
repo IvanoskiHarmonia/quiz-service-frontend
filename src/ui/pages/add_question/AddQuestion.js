@@ -46,7 +46,7 @@ const AddQuestion = () => {
 
   return (
     <div className="container mt-4">
-      <h2 className="display-6">Add New Question</h2>
+      <h2 className="display-6 text-center">Add New Question</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-floating mb-3">
           <textarea

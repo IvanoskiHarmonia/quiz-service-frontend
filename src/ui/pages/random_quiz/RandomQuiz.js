@@ -43,7 +43,7 @@ function RandomQuiz() {
 
   return (
     <div className="all-questions-container m-4">
-      <h2 className="display-6">Quiz</h2>
+      <h2 className="display-6 text-center">Quiz</h2>
 
       {loading && <p>Loading...</p>}
       {error && <p>Something went wrong...</p>}

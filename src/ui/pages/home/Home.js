@@ -1,6 +1,7 @@
-// src/components/QuestionsComponent.js
 import React, { useState } from "react";
 import "./Home.css";
+import { categories } from "../../../common/constants/categories";
+import { difficulties } from "../../../common/constants/difficulties";
 import useDynamicQuestionFetch from "../../../common/services/useDynamicQuestionFetch";
 import QuestionCard from "../../modules/components/QuestionCard/QuestionCard";
 
@@ -49,12 +50,9 @@ function Home() {
     );
   });
 
-  const categories = ["Java", "Spring"];
-  const difficulties = ["Easy", "Medium", "Hard"];
-
   return (
     <div className="all-questions-container">
-      <h2 className="display-6">All Questions</h2>
+      <h2 className="display-6 text-center">All Questions</h2>
 
       <select
         className="select-box"
