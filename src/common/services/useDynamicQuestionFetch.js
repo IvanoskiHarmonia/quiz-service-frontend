@@ -7,7 +7,7 @@ function useDynamicQuestionFetch(category, difficulty) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let url = "http://localhost:8000/questions";
+    let url = "http://localhost:8000/api/questions";
 
     if (category && difficulty) {
       url += `/category-and-difficulty/${category}/${difficulty}`;

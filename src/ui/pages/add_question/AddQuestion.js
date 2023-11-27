@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./add_question.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "./AddQuestion.css";
+import { categories } from "../../../common/constants/categories";
 
 const AddQuestion = () => {
   const [question, setQuestion] = useState({
@@ -13,73 +12,7 @@ const AddQuestion = () => {
     type: "OPEN_ENDED",
   });
 
-  const categories = [
-    "JAVA",
-    "PYTHON",
-    "JAVASCRIPT",
-    "C",
-    "C_PLUS_PLUS",
-    "C_SHARP",
-    "PHP",
-    "RUBY",
-    "SQL",
-    "SWIFT",
-    "GO",
-    "TYPESCRIPT",
-    "KOTLIN",
-    "RUST",
-    "SCALA",
-    "PERL",
-    "R",
-    "MATLAB",
-    "OBJECTIVE_C",
-    "VISUAL_BASIC",
-    "HASKELL",
-    "CLOJURE",
-    "GROOVY",
-    "DART",
-    "BASH",
-    "COBOL",
-    "FORTRAN",
-    "LISP",
-    "PASCAL",
-    "PROLOG",
-    "SCHEME",
-    "SMALLTALK",
-    "ADA",
-    "FORTH",
-    "F_SHARP",
-    "LUA",
-    "OCAML",
-    "PEARL",
-    "POWERSHELL",
-    "RACKET",
-    "VB_SCRIPT",
-    "VERILOG",
-    "VHDL",
-    "COFFEE_SCRIPT",
-    "ERLANG",
-    "HACK",
-    "JULIA",
-    "OBJECTIVE_J",
-    "PUPPET",
-    "RUBY_ON_RAILS",
-    "DJANGO",
-    "SPRING",
-    "FLASK",
-    "LARAVEL",
-    "EXPRESS_JS",
-    "ASP_NET",
-    "ANGULAR",
-    "REACT",
-    "VUE_JS",
-    "EMBER_JS",
-    "METEOR_JS",
-    "BACKBONE_JS",
-    "NODE_JS",
-    "RUBY_GEMS",
-    "DJANGO_REST_FRAMEWORK",
-  ].sort();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -100,18 +33,20 @@ const AddQuestion = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8000/questions/add",
+        "http://localhost:8000/api/questions/add",
         question,
       );
-      console.log(response.data);
+      console.log("Question added: ", response.data);
+      window.location = "/";
     } catch (error) {
       console.error("Error adding question: ", error);
+      setErrorMessage("Please fill in all the required fields");
     }
   };
 
   return (
     <div className="container mt-4">
-      <h2 className="display-6">Add New Question</h2>
+      <h2 className="display-6 text-center">Add New Question</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-floating mb-3">
           <textarea
@@ -181,6 +116,10 @@ const AddQuestion = () => {
             ))}
           </select>
         </div>
+
+        {errorMessage && (
+          <div className="alert alert-danger">{errorMessage}</div>
+        )}
 
         <button type="submit" className="btn btn-primary">
           Add Question
