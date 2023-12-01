@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import "./Home.css";
-import { categories } from "../../../common/constants/categories";
-import { difficulties } from "../../../common/constants/difficulties";
-import useDynamicQuestionFetch from "../../../common/services/useDynamicQuestionFetch";
-import QuestionCard from "../../modules/components/QuestionCard/QuestionCard";
+import React, { useState } from 'react';
+import './Home.css';
+import { categories } from '../../../common/constants/categories';
+import { difficulties } from '../../../common/constants/difficulties';
+import useDynamicQuestionFetch from '../../../common/services/useDynamicQuestionFetch';
+import QuestionCard from '../../modules/components/QuestionCard/QuestionCard';
 
 function Home() {
-  const [category, setCategory] = useState("");
-  const [difficulty, setDifficulty] = useState("");
+  const [category, setCategory] = useState('');
+  const [difficulty, setDifficulty] = useState('');
   const [userAnswers, setUserAnswers] = useState({});
 
   const { questions, loading, error } = useDynamicQuestionFetch(
@@ -31,20 +31,20 @@ function Home() {
   }
 
   const handleAnswerChange = (questionId, answer) => {
-    setUserAnswers((prevAnswers) => ({
+    setUserAnswers(prevAnswers => ({
       ...prevAnswers,
       [questionId]: answer,
     }));
   };
 
-  const renderPageNumbers = pageNumbers.map((number) => {
+  const renderPageNumbers = pageNumbers.map(number => {
     return (
       <li
         key={number}
-        className={`page-item ${currentPage === number ? "disabled" : ""}`}
+        className={`page-item ${currentPage === number ? 'disabled' : ''}`}
       >
         <a
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault();
             setCurrentPage(number);
             window.scrollTo(0, 0);
@@ -65,13 +65,13 @@ function Home() {
       <select
         className="select-box"
         value={category}
-        onChange={(e) => {
+        onChange={e => {
           setCategory(e.target.value);
           setCurrentPage(1);
         }}
       >
         <option value="">Select Category</option>
-        {categories.map((c) => (
+        {categories.map(c => (
           <option key={c} value={c}>
             {c}
           </option>
@@ -82,13 +82,13 @@ function Home() {
         <select
           className="select-box"
           value={difficulty}
-          onChange={(e) => {
+          onChange={e => {
             setDifficulty(e.target.value);
             setCurrentPage(1);
           }}
         >
           <option value="">Select Difficulty</option>
-          {difficulties.map((d) => (
+          {difficulties.map(d => (
             <option key={d} value={d}>
               {d}
             </option>
@@ -101,12 +101,12 @@ function Home() {
       ) : error ? (
         <div>Error: {error.message}</div>
       ) : (
-        currentQuestions.map((question) => (
+        currentQuestions.map(question => (
           <QuestionCard
             key={question.id}
             question={question}
             onAnswerChange={handleAnswerChange}
-            userAnswer={userAnswers[question.id] || ""}
+            userAnswer={userAnswers[question.id] || ''}
             showAnswerButton={true}
           />
         ))

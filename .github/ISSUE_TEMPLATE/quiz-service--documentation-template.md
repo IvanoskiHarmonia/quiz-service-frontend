@@ -4,15 +4,15 @@ about: Describe what needs to be documented or updated in the project documentat
 title: 'QUS-#: Brief description of documentation task'
 labels: documentation
 assignees: ''
-
 ---
 
 ## Documentation Overview
 
-**Summary**  
+**Summary**
 Outline what needs to be documented or what existing documentation needs to be updated.
 
 ### Objectives
+
 - **Components**: What parts of the project need new or updated documentation?
 - **Audience**: Who is the intended audience for this documentation? (e.g., end-users, developers, etc.)
 - **Format**: What format should the documentation take? (e.g., Wiki, README, inline comments)
@@ -31,4 +31,5 @@ Provide a more detailed description of what needs to be documented. This can inc
 - Link to any diagrams, screenshots, or external references that may aid in documentation.
 
 ### Additional Information
+
 - Any other notes like priority, dependencies on other issues, etc.

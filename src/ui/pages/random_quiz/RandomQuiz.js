@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import useDynamicQuizFetch from "../../../common/services/useDynamicQuizFetch";
-import QuestionCard from "../../modules/components/QuestionCard/QuestionCard";
-import QuizResultsScreen from "../../modules/components/QuizResultsScreen/QuizResultsScreen";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import useDynamicQuizFetch from '../../../common/services/useDynamicQuizFetch';
+import QuestionCard from '../../modules/components/QuestionCard/QuestionCard';
+import QuizResultsScreen from '../../modules/components/QuizResultsScreen/QuizResultsScreen';
+import axios from 'axios';
 
 function RandomQuiz() {
   const { questions, loading, error } = useDynamicQuizFetch();
@@ -11,14 +11,14 @@ function RandomQuiz() {
 
   useEffect(() => {
     const initialAnswers = {};
-    questions.forEach((question) => {
-      initialAnswers[question.id] = ""; // Or any default value
+    questions.forEach(question => {
+      initialAnswers[question.id] = ''; // Or any default value
     });
     setAnswers(initialAnswers);
   }, [questions]);
 
   const handleAnswerChange = (questionId, answer) => {
-    setAnswers((prevAnswers) => ({ ...prevAnswers, [questionId]: answer }));
+    setAnswers(prevAnswers => ({ ...prevAnswers, [questionId]: answer }));
   };
 
   const handleSubmit = () => {
@@ -27,13 +27,13 @@ function RandomQuiz() {
     };
 
     axios
-      .post("http://localhost:8000/api/quizzes/submit", submission)
-      .then((response) => {
+      .post('http://localhost:8000/api/quizzes/submit', submission)
+      .then(response => {
         setQuizResults(response.data.answerDetails);
         window.scrollTo(0, 0);
       })
-      .catch((error) => {
-        console.error("Error submitting quiz:", error);
+      .catch(error => {
+        console.error('Error submitting quiz:', error);
       });
   };
 
@@ -47,7 +47,7 @@ function RandomQuiz() {
 
       {loading && <p>Loading...</p>}
       {error && <p>Something went wrong...</p>}
-      {questions.map((question) => (
+      {questions.map(question => (
         <QuestionCard
           key={question.id}
           question={question}

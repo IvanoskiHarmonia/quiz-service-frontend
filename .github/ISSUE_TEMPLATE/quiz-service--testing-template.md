@@ -4,15 +4,15 @@ about: Describe the feature that needs to be tested.
 title: 'QUS-#: short description of testing purposes'
 labels: Testing
 assignees: ''
-
 ---
 
 ## Testing Overview
 
-**Summary**  
+**Summary**
 Provide a brief overview of what feature or component needs to be tested.
 
 ### Objectives
+
 - **Scope**: What's the extent of the testing? Is it a single function, a component, or the whole application?
 - **Main Concerns**: What are the critical parts that absolutely must work?
 - **Edge Cases**: Are there any edge cases you're concerned about?
@@ -35,8 +35,10 @@ List down what outcomes are expected when the tests are executed successfully.
 What should happen if the test fails? Do we have a rollback plan or a contingency plan?
 
 ### Additional Requirements
+
 - Hardware/Software requirements for testing if any.
 - Any specific time or condition under which tests must be executed.
 
 ### Additional Information
+
 - Any other notes like priority of this testing, dependencies on other issues, etc.
