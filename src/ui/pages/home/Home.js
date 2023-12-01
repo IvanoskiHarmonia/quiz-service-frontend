@@ -8,6 +8,7 @@ import QuestionCard from "../../modules/components/QuestionCard/QuestionCard";
 function Home() {
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const [userAnswers, setUserAnswers] = useState({});
 
   const { questions, loading, error } = useDynamicQuestionFetch(
     category,
@@ -28,6 +29,13 @@ function Home() {
   for (let i = 1; i <= Math.ceil(questions.length / questionsPerPage); i++) {
     pageNumbers.push(i);
   }
+
+  const handleAnswerChange = (questionId, answer) => {
+    setUserAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [questionId]: answer,
+    }));
+  };
 
   const renderPageNumbers = pageNumbers.map((number) => {
     return (
@@ -93,10 +101,12 @@ function Home() {
       ) : error ? (
         <div>Error: {error.message}</div>
       ) : (
-        currentQuestions.map((question, index) => (
+        currentQuestions.map((question) => (
           <QuestionCard
-            key={index}
+            key={question.id}
             question={question}
+            onAnswerChange={handleAnswerChange}
+            userAnswer={userAnswers[question.id] || ""}
             showAnswerButton={true}
           />
         ))

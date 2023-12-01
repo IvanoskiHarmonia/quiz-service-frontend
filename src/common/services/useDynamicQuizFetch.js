@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function useDynamicQuizFetch() {
   const [questions, setQuestions] = useState([]);
@@ -7,20 +7,20 @@ function useDynamicQuizFetch() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let url = "http://localhost:8000/api/quizzes/random10";
+    let url = 'http://localhost:8000/api/quizzes/random10';
 
     axios
       .get(url)
-      .then((response) => {
+      .then(response => {
         const sortedQuestions = response.data.sort((a, b) => a.id - b.id);
         setQuestions(sortedQuestions);
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(error => {
         setError(error);
         setLoading(false);
       });
-  }, []); // Dependency array
+  }, []);
 
   return { questions, loading, error };
 }
