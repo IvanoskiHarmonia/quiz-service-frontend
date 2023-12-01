@@ -1,16 +1,16 @@
 // src/App.js or another parent component
-import React from "react";
+import React from 'react';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   NavLink,
-} from "react-router-dom";
-import Home from "./pages/home/Home";
-import RandomQuiz from "./pages/random_quiz/RandomQuiz";
-import AddQuestion from "./pages/add_question/AddQuestion";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+} from 'react-router-dom';
+import Home from './pages/home/Home';
+import RandomQuiz from './pages/random_quiz/RandomQuiz';
+import AddQuestion from './pages/add_question/AddQuestion';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 function App() {
   return (

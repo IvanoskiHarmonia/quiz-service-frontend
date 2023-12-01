@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function QuizResultsScreen({ results }) {
   return (
@@ -13,18 +13,18 @@ function QuizResultsScreen({ results }) {
             <h5 className="card-title">Question: {result.question.text}</h5>
             <hr className="border border-primary border-1 opacity-75" />
             <p className="card-text mt-3">
-              <strong>Your Answer:</strong>{" "}
-              {result.userAnswer || "No answer given"}
+              <strong>Your Answer:</strong>{' '}
+              {result.userAnswer || 'No answer given'}
             </p>
             <p className="card-text">
               <strong>Correct Answer:</strong> {result.question.answer}
             </p>
             <p
               className={`card-text fw-bolder ${
-                result.isCorrect ? "text-success" : "text-danger"
+                result.isCorrect ? 'text-success' : 'text-danger'
               }`}
             >
-              {result.isCorrect ? "Correct" : "Incorrect"}
+              {result.isCorrect ? 'Correct' : 'Incorrect'}
             </p>
           </div>
         </div>

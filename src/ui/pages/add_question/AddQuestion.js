@@ -1,46 +1,46 @@
-import React, { useState } from "react";
-import axios from "axios";
-import "./AddQuestion.css";
-import { categories } from "../../../common/constants/categories";
+import React, { useState } from 'react';
+import axios from 'axios';
+import './AddQuestion.css';
+import { categories } from '../../../common/constants/categories';
 
 const AddQuestion = () => {
   const [question, setQuestion] = useState({
-    text: "",
-    answer: "",
-    difficulty: "",
-    category: { name: "" },
-    type: "OPEN_ENDED",
+    text: '',
+    answer: '',
+    difficulty: '',
+    category: { name: '' },
+    type: 'OPEN_ENDED',
   });
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
-    if (name === "category") {
-      setQuestion((prevQuestion) => ({
+    if (name === 'category') {
+      setQuestion(prevQuestion => ({
         ...prevQuestion,
         category: { name: value },
       }));
     } else {
-      setQuestion((prevQuestion) => ({
+      setQuestion(prevQuestion => ({
         ...prevQuestion,
         [name]: value,
       }));
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/questions/add",
+        'http://localhost:8000/api/questions/add',
         question,
       );
-      console.log("Question added: ", response.data);
-      window.location = "/";
+      console.log('Question added: ', response.data);
+      window.location = '/';
     } catch (error) {
-      console.error("Error adding question: ", error);
-      setErrorMessage("Please fill in all the required fields");
+      console.error('Error adding question: ', error);
+      setErrorMessage('Please fill in all the required fields');
     }
   };
 
@@ -57,10 +57,10 @@ const AddQuestion = () => {
             onChange={handleChange}
             value={question.text}
             rows="3"
-            style={{ height: "100px" }}
+            style={{ height: '100px' }}
           ></textarea>
           <label htmlFor="text" className="form-label">
-            Question <span style={{ color: "red" }}>*</span>
+            Question <span style={{ color: 'red' }}>*</span>
           </label>
         </div>
 
@@ -72,16 +72,16 @@ const AddQuestion = () => {
             placeholder="Enter the answer"
             onChange={handleChange}
             value={question.answer}
-            style={{ height: "150px" }}
+            style={{ height: '150px' }}
           ></textarea>
           <label htmlFor="answer" className="form-label">
-            Answer <span style={{ color: "red" }}>*</span>
+            Answer <span style={{ color: 'red' }}>*</span>
           </label>
         </div>
 
         <div className="mb-3">
           <label htmlFor="difficulty" className="form-label">
-            Difficulty <span style={{ color: "red" }}>*</span>
+            Difficulty <span style={{ color: 'red' }}>*</span>
           </label>
           <select
             className="form-select"
@@ -99,19 +99,19 @@ const AddQuestion = () => {
 
         <div className="mb-3">
           <label htmlFor="category" className="form-label">
-            Category <span style={{ color: "red" }}>*</span>
+            Category <span style={{ color: 'red' }}>*</span>
           </label>
           <select
             className="form-select"
             id="category"
             name="category"
             onChange={handleChange}
-            value={question.category?.name || ""}
+            value={question.category?.name || ''}
           >
             <option value="">Select Category</option>
-            {categories.map((category) => (
+            {categories.map(category => (
               <option key={category} value={category}>
-                {category.replace(/_/g, " ")}
+                {category.replace(/_/g, ' ')}
               </option>
             ))}
           </select>

@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-function QuestionCard({ question, onAnswerChange, showAnswerButton }) {
+function QuestionCard({
+  question,
+  onAnswerChange,
+  userAnswer,
+  showAnswerButton,
+}) {
   const [showAnswer, setShowAnswer] = useState(false);
-  const [userAnswer, setUserAnswer] = useState("");
+  const [localUserAnswer, setLocalUserAnswer] = useState(userAnswer || '');
 
-  const handleAnswerChange = (event) => {
+  const handleAnswerChange = event => {
     const newAnswer = event.target.value;
-    setUserAnswer(newAnswer);
+    setLocalUserAnswer(newAnswer);
     onAnswerChange(question.id, newAnswer);
   };
 
@@ -23,8 +28,8 @@ function QuestionCard({ question, onAnswerChange, showAnswerButton }) {
         <textarea
           className="form-control"
           placeholder="Type your answer here..."
-          style={{ height: "125px" }}
-          value={userAnswer}
+          style={{ height: '125px' }}
+          value={localUserAnswer}
           onChange={handleAnswerChange}
         ></textarea>
         <label htmlFor="answer" className="form-label">
@@ -37,7 +42,7 @@ function QuestionCard({ question, onAnswerChange, showAnswerButton }) {
             className="btn btn-primary"
             onClick={() => setShowAnswer(!showAnswer)}
           >
-            {showAnswer ? "Hide" : "Show"} Answer
+            {showAnswer ? 'Hide' : 'Show'} Answer
           </button>
           {showAnswer && (
             <div className="answer">Answer: {question.answer}</div>
@@ -48,16 +53,16 @@ function QuestionCard({ question, onAnswerChange, showAnswerButton }) {
   );
 }
 
-const getGradientStyle = (difficulty) => {
+const getGradientStyle = difficulty => {
   switch (difficulty) {
-    case "EASY":
-      return "linear-gradient(to bottom, #add8e6af, white)";
-    case "MEDIUM":
-      return "linear-gradient(to bottom, #FED8B1AF, white)";
-    case "HARD":
-      return "linear-gradient(to bottom, #FF474CAF, white)";
+    case 'EASY':
+      return 'linear-gradient(to bottom, #add8e6af, white)';
+    case 'MEDIUM':
+      return 'linear-gradient(to bottom, #FED8B1AF, white)';
+    case 'HARD':
+      return 'linear-gradient(to bottom, #FF474CAF, white)';
     default:
-      return "none";
+      return 'none';
   }
 };
 

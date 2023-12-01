@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function useDynamicQuestionFetch(category, difficulty) {
   const [questions, setQuestions] = useState([]);
@@ -7,27 +7,27 @@ function useDynamicQuestionFetch(category, difficulty) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let url = "http://localhost:8000/api/questions";
+    let url = 'http://localhost:8000/api/questions';
 
     if (category && difficulty) {
       url += `/category-and-difficulty/${category}/${difficulty}`;
     } else if (category) {
       url += `/category/${category}`;
     } else {
-      url += "/all";
+      url += '/all';
     }
 
     axios
       .get(url)
-      .then((response) => {
+      .then(response => {
         setQuestions(response.data);
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(error => {
         setError(error);
         setLoading(false);
       });
-  }, [category, difficulty]); // Dependency array
+  }, [category, difficulty]);
 
   return { questions, loading, error };
 }
