@@ -4,11 +4,13 @@ import { categories } from '../../../common/constants/categories';
 import { difficulties } from '../../../common/constants/difficulties';
 import useDynamicQuestionFetch from '../../../common/services/useDynamicQuestionFetch';
 import QuestionCard from '../../modules/components/QuestionCard/QuestionCard';
+import Flashcard from '../../modules/components/Flashcard/Flashcard';
 
 function Home() {
   const [category, setCategory] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [userAnswers, setUserAnswers] = useState({});
+  const [viewMode, setViewMode] = useState('questionCard');
 
   const { questions, loading, error } = useDynamicQuestionFetch(
     category,
@@ -58,9 +60,46 @@ function Home() {
     );
   });
 
+  const renderQuestions = () => {
+    return currentQuestions.map(question => {
+      if (viewMode === 'flashcard') {
+        return <Flashcard key={question.id} question={question} />;
+      } else {
+        return (
+          <QuestionCard
+            key={question.id}
+            question={question}
+            onAnswerChange={handleAnswerChange}
+            userAnswer={userAnswers[question.id] || ''}
+            showAnswerButton={true}
+          />
+        );
+      }
+    });
+  };
+
   return (
     <div className="all-questions-container">
       <h2 className="display-6 text-center">All Questions</h2>
+
+      <div className="view-buttons-center">
+        <button
+          className={`btn me-2 ${
+            viewMode === 'questionCard' ? 'btn-primary' : 'btn-secondary'
+          }`}
+          onClick={() => setViewMode('questionCard')}
+        >
+          Question Card View
+        </button>
+        <button
+          className={`btn ${
+            viewMode === 'flashcard' ? 'btn-primary' : 'btn-secondary'
+          }`}
+          onClick={() => setViewMode('flashcard')}
+        >
+          Flashcard View
+        </button>
+      </div>
 
       <select
         className="select-box"
@@ -101,15 +140,7 @@ function Home() {
       ) : error ? (
         <div>Error: {error.message}</div>
       ) : (
-        currentQuestions.map(question => (
-          <QuestionCard
-            key={question.id}
-            question={question}
-            onAnswerChange={handleAnswerChange}
-            userAnswer={userAnswers[question.id] || ''}
-            showAnswerButton={true}
-          />
-        ))
+        renderQuestions()
       )}
 
       <nav>

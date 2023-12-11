@@ -4,6 +4,13 @@
   width: 90%;
 }
 
+.view-buttons-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .question-card {
   border: 1px solid #ddd;
   border-radius: 5px;
