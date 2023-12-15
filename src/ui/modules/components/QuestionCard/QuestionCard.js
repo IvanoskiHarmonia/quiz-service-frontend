@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ChangeGradientByDifficulty from '../../utils/ChangeGradientByDifficulty';
 
 function QuestionCard({
   question,
@@ -18,7 +19,7 @@ function QuestionCard({
   return (
     <div
       className="question-card"
-      style={{ background: getGradientStyle(question.difficulty) }}
+      style={{ background: ChangeGradientByDifficulty(question.difficulty) }}
     >
       <div className="question-content">
         <p>Question: {question.text}</p>
@@ -52,18 +53,5 @@ function QuestionCard({
     </div>
   );
 }
-
-const getGradientStyle = difficulty => {
-  switch (difficulty) {
-    case 'EASY':
-      return 'linear-gradient(to bottom, #add8e6af, white)';
-    case 'MEDIUM':
-      return 'linear-gradient(to bottom, #FED8B1AF, white)';
-    case 'HARD':
-      return 'linear-gradient(to bottom, #FF474CAF, white)';
-    default:
-      return 'none';
-  }
-};
 
 export default QuestionCard;
