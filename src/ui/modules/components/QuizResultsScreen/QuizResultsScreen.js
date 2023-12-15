@@ -17,14 +17,7 @@ function QuizResultsScreen({ results }) {
               {result.userAnswer || 'No answer given'}
             </p>
             <p className="card-text">
-              <strong>Correct Answer:</strong> {result.question.answer}
-            </p>
-            <p
-              className={`card-text fw-bolder ${
-                result.isCorrect ? 'text-success' : 'text-danger'
-              }`}
-            >
-              {result.isCorrect ? 'Correct' : 'Incorrect'}
+              <strong>Answer:</strong> {result.question.answer}
             </p>
           </div>
         </div>

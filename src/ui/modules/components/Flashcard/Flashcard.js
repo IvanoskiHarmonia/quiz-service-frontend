@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Flashcard.css';
+import ChangeGradientByDifficulty from '../../utils/ChangeGradientByDifficulty';
 
 function Flashcard({ question }) {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -14,7 +15,12 @@ function Flashcard({ question }) {
       onClick={flipCard}
     >
       <div className="flashcard-inner">
-        <div className="flashcard-front">
+        <div
+          className="flashcard-front"
+          style={{
+            background: ChangeGradientByDifficulty(question.difficulty),
+          }}
+        >
           <p>{question.text}</p>
         </div>
         <div className="flashcard-back">

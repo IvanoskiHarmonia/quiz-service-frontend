@@ -5,6 +5,7 @@ import { difficulties } from '../../../common/constants/difficulties';
 import useDynamicQuestionFetch from '../../../common/services/useDynamicQuestionFetch';
 import QuestionCard from '../../modules/components/QuestionCard/QuestionCard';
 import Flashcard from '../../modules/components/Flashcard/Flashcard';
+import usePagination from '../../../common/hooks/usePagination';
 
 function Home() {
   const [category, setCategory] = useState('');
@@ -16,21 +17,10 @@ function Home() {
     category,
     difficulty,
   );
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [questionsPerPage] = useState(15);
-
-  const indexOfLastQuestion = currentPage * questionsPerPage;
-  const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
-  const currentQuestions = questions.slice(
-    indexOfFirstQuestion,
-    indexOfLastQuestion,
+  const { currentItems, renderPageNumbers, setCurrentPage } = usePagination(
+    questions,
+    15,
   );
-
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(questions.length / questionsPerPage); i++) {
-    pageNumbers.push(i);
-  }
 
   const handleAnswerChange = (questionId, answer) => {
     setUserAnswers(prevAnswers => ({
@@ -39,29 +29,8 @@ function Home() {
     }));
   };
 
-  const renderPageNumbers = pageNumbers.map(number => {
-    return (
-      <li
-        key={number}
-        className={`page-item ${currentPage === number ? 'disabled' : ''}`}
-      >
-        <a
-          onClick={e => {
-            e.preventDefault();
-            setCurrentPage(number);
-            window.scrollTo(0, 0);
-          }}
-          href="!#"
-          className="page-link"
-        >
-          {number}
-        </a>
-      </li>
-    );
-  });
-
   const renderQuestions = () => {
-    return currentQuestions.map(question => {
+    return currentItems.map(question => {
       if (viewMode === 'flashcard') {
         return <Flashcard key={question.id} question={question} />;
       } else {
@@ -143,11 +112,7 @@ function Home() {
         renderQuestions()
       )}
 
-      <nav>
-        <ul className="pagination justify-content-center">
-          {renderPageNumbers}
-        </ul>
-      </nav>
+      <nav>{renderPageNumbers()}</nav>
     </div>
   );
 }
