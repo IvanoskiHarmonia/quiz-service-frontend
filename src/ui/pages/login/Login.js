@@ -3,6 +3,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../common/hooks/useAuth';
 import logo from '../../../resources/logo/logo512.png';
+import googleLogo from '../../../resources/logo/web_neutral_sq_na@1x.png';
 
 const Login = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
@@ -30,17 +31,30 @@ const Login = ({ setIsAuthenticated }) => {
         <div className="col-4">
           <div className="card mt-5">
             <div className="card-body shadow">
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center mb-1">
                 <img
                   src={logo}
                   alt="Logo"
-                  style={{ width: '40px', height: '40px' }}
+                  style={{ width: '60px', height: '60px', borderRadius: '5px' }}
+                  className="shadow"
                 />
-                <h2 className="card-title text-center ms-3">Login Page</h2>
               </div>
-
+              <h2 className="card-title text-center mb-2">Login Page</h2>
               <div className="d-flex justify-content-center">
-                <button onClick={() => login()} className="btn btn-primary">
+                <button
+                  onClick={() => login()}
+                  className="btn btn-primary d-flex align-items-center"
+                >
+                  <img
+                    src={googleLogo}
+                    alt="Google Logo"
+                    style={{
+                      width: '25px',
+                      height: '25px',
+                      marginRight: '10px',
+                    }}
+                    className="shadow"
+                  />
                   Login with Google
                 </button>
               </div>
