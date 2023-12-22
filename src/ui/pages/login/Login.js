@@ -74,7 +74,7 @@ const Login = ({ setIsAuthenticated }) => {
                     }}
                     className="shadow"
                   />
-                  Login with Google
+                  Sign in
                 </button>
               </div>
             </div>
