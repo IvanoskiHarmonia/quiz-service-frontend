@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../common/hooks/useAuth';
@@ -12,13 +13,31 @@ const Login = ({ setIsAuthenticated }) => {
   const login = useGoogleLogin({
     clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
     auto_select: true,
-    onSuccess: tokenResponse => {
-      console.log(tokenResponse);
+    onSuccess: async tokenResponse => {
       handleLogin(
         tokenResponse.access_token,
         new Date().getTime() + tokenResponse.expires_in,
         navigate,
       );
+
+      try {
+        const googleUserResponse = await axios.get(
+          'https://www.googleapis.com/oauth2/v3/userinfo',
+          {
+            headers: {
+              Authorization: `Bearer ${tokenResponse.access_token}`,
+            },
+          },
+        );
+
+        await axios.post('http://localhost:8000/api/users/login', {
+          token: tokenResponse.access_token,
+          expiresAt: new Date().getTime() + tokenResponse.expires_in,
+          email: googleUserResponse.data.email,
+        });
+      } catch (error) {
+        console.error('Failed to fetch user data or send to backend:', error);
+      }
     },
     onError: error => {
       console.error('Login Failed:', error);
