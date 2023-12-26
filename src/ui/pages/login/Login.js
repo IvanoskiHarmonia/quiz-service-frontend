@@ -6,7 +6,7 @@ import { useAuth } from '../../../common/hooks/useAuth';
 import logo from '../../../resources/logo/logo512.png';
 import googleLogo from '../../../resources/logo/web_neutral_sq_na@1x.png';
 
-const Login = ({ setIsAuthenticated }) => {
+const Login = () => {
   const navigate = useNavigate();
   const { handleLogin } = useAuth();
 
@@ -14,12 +14,6 @@ const Login = ({ setIsAuthenticated }) => {
     clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
     auto_select: true,
     onSuccess: async tokenResponse => {
-      handleLogin(
-        tokenResponse.access_token,
-        new Date().getTime() + tokenResponse.expires_in,
-        navigate,
-      );
-
       try {
         const googleUserResponse = await axios.get(
           'https://www.googleapis.com/oauth2/v3/userinfo',
@@ -30,11 +24,17 @@ const Login = ({ setIsAuthenticated }) => {
           },
         );
 
-        await axios.post('http://localhost:8000/api/users/login', {
-          token: tokenResponse.access_token,
-          expiresAt: new Date().getTime() + tokenResponse.expires_in,
-          email: googleUserResponse.data.email,
-        });
+        await axios.post(
+          'http://localhost:8000/api/users/login',
+          {
+            token: tokenResponse.access_token,
+            expiresAt: new Date().getTime() + tokenResponse.expires_in,
+            email: googleUserResponse.data.email,
+          },
+          { withCredentials: true },
+        );
+
+        handleLogin(navigate);
       } catch (error) {
         console.error('Failed to fetch user data or send to backend:', error);
       }

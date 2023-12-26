@@ -1,38 +1,46 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 export const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const checkTokenExpiry = token => {
-    const expiryTime = localStorage.getItem('expiryTime');
-    return new Date().getTime() > expiryTime;
-  };
-
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const token = localStorage.getItem('authToken');
-    return token ? !checkTokenExpiry() : false;
-  });
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {});
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      setIsAuthenticated(!checkTokenExpiry(token));
-    }
+    validateSession();
   }, []);
 
-  const handleLogin = (token, expiryTime, navigate) => {
-    localStorage.setItem('authToken', token);
-    localStorage.setItem('expiryTime', expiryTime);
+  const validateSession = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:8000/api/session/validate',
+        { withCredentials: true },
+      );
+
+      setIsAuthenticated(response.data.isValidSession);
+    } catch (error) {
+      console.error('Failed to validate session:', error);
+    }
+  };
+
+  const handleLogin = navigate => {
     setIsAuthenticated(true);
     navigate('/');
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('expiryTime');
-    setIsAuthenticated(false);
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        'http://localhost:8000/api/session/logout',
+        {},
+        { withCredentials: true },
+      );
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error('Failed to logout:', error);
+    }
   };
 
   return (
