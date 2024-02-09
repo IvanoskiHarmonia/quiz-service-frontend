@@ -12,7 +12,7 @@ function RandomQuiz() {
   useEffect(() => {
     const initialAnswers = {};
     questions.forEach(question => {
-      initialAnswers[question.id] = ''; // Or any default value
+      initialAnswers[question.id] = '';
     });
     setAnswers(initialAnswers);
   }, [questions]);
