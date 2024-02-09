@@ -53,7 +53,7 @@ function Home() {
 
       <div className="view-buttons-center">
         <button
-          className={`btn me-2 shadow ${
+          className={`btn me-2 ${
             viewMode === 'questionCard' ? 'btn-primary' : 'btn-secondary'
           }`}
           onClick={() => setViewMode('questionCard')}
@@ -61,7 +61,7 @@ function Home() {
           Question Card View
         </button>
         <button
-          className={`btn shadow ${
+          className={`btn ${
             viewMode === 'flashcard' ? 'btn-primary' : 'btn-secondary'
           }`}
           onClick={() => setViewMode('flashcard')}

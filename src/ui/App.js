@@ -1,13 +1,14 @@
+// src/App.js or another parent component
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import NavBar from './modules/components/NavBar/NavBar';
-import Login from './pages/login/Login';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  NavLink,
+} from 'react-router-dom';
 import Home from './pages/home/Home';
 import QuizPage from './pages/quiz_page/QuizPage';
 import AddQuestion from './pages/add_question/AddQuestion';
-import ProtectedRoute from './modules/utils/ProtectedRoute';
-import { AuthProvider } from '../common/hooks/useAuth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -40,7 +41,7 @@ function App() {
                 path="/quizzes"
                 element={
                   <ProtectedRoute>
-                    <QuizPage />
+                    <RandomQuiz />
                   </ProtectedRoute>
                 }
               />
