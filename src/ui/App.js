@@ -4,7 +4,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import NavBar from './modules/components/NavBar/NavBar';
 import Login from './pages/login/Login';
 import Home from './pages/home/Home';
-import RandomQuiz from './pages/random_quiz/RandomQuiz';
+import QuizPage from './pages/quiz_page/QuizPage';
 import AddQuestion from './pages/add_question/AddQuestion';
 import ProtectedRoute from './modules/utils/ProtectedRoute';
 import { AuthProvider } from '../common/hooks/useAuth';
@@ -40,7 +40,7 @@ function App() {
                 path="/quizzes"
                 element={
                   <ProtectedRoute>
-                    <RandomQuiz />
+                    <QuizPage />
                   </ProtectedRoute>
                 }
               />
