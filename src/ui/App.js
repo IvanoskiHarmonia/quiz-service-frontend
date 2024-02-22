@@ -6,6 +6,7 @@ import Login from './pages/login/Login';
 import Home from './pages/home/Home';
 import QuizPage from './pages/quiz_page/QuizPage';
 import AddQuestion from './pages/add_question/AddQuestion';
+import QuizTaker from './modules/components/QuizTaker/QuizTaker';
 import ProtectedRoute from './modules/utils/ProtectedRoute';
 import { AuthProvider } from '../common/hooks/useAuth';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -44,6 +45,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path="/quiz/:quizId" element={<QuizTaker />} />
             </Routes>
           </div>
         </Router>

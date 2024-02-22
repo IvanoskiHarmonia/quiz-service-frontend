@@ -1,0 +1,13 @@
+/* Custom styles for the navbar */
+@media (max-width: 1000px) {
+  .custom-navbar .navbar-nav {
+    flex-direction: row;
+  }
+  .custom-navbar .nav-item {
+    display: flex;
+  }
+  .custom-navbar .nav-link {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}

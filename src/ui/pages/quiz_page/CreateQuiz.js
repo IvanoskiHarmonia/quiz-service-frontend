@@ -35,7 +35,6 @@ function CreateQuiz() {
         ? prevState.questions.filter(id => id !== questionId)
         : [...prevState.questions, questionId],
     }));
-    
   };
 
   const handleSubmit = e => {
@@ -47,11 +46,13 @@ function CreateQuiz() {
       )
     ) {
       setError('Please fill in all fields and select at least 10 question.');
+      window.scrollTo(0, 0);
       return;
     }
 
     if (quizData.questions.length < 10) {
       setError('Please select at least 10 questions.');
+      window.scrollTo(0, 0);
       return;
     }
 
@@ -77,6 +78,7 @@ function CreateQuiz() {
       })
       .catch(error => {
         console.error('Error creating quiz:', error);
+        window.scrollTo(0, 0);
       });
   };
 
@@ -169,18 +171,19 @@ function CreateQuiz() {
                       : 'bg-danger-subtle'
                 }`}
               >
-                {question.difficulty === 'EASY'
-                  ? 'Easy'
-                  : question.difficulty === 'MEDIUM'
-                    ? 'Medium'
-                    : 'Hard'}
+                {question.difficulty.charAt(0) +
+                  question.difficulty.slice(1).toLowerCase()}
+              </span>
+              <span className="badge bg-primary rounded ms-2">
+                {question.category.name.charAt(0) +
+                  question.category.name.slice(1).toLowerCase()}
               </span>
             </label>
           </div>
         ))}
       </div>
 
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="btn btn-primary mb-4">
         Create Quiz
       </button>
     </form>

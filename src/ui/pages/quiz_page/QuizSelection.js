@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function QuizSelection() {
+  const navigate = useNavigate();
+
   const [quizzes, setQuizzes] = useState([]);
   const [sortType, setSortType] = useState('');
 
@@ -21,6 +24,10 @@ function QuizSelection() {
       // Add sorting logic here based on sortType
     }
   }, [sortType, quizzes]);
+
+  const startQuiz = quizId => {
+    navigate(`/quiz/${quizId}`);
+  };
 
   return (
     <div className="quiz-selection-container">
@@ -50,7 +57,12 @@ function QuizSelection() {
                 Difficulty: {quiz.difficulty}
               </small>
             </p>
-            <button className="btn btn-primary">Start Quiz</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => startQuiz(quiz.id)}
+            >
+              Start Quiz
+            </button>
           </div>
         </div>
       ))}
